@@ -25,15 +25,22 @@ while(True == True):
     if(numOfAccts == 1):
         f=open(fname)
         lines=f.readlines()
-        username=lines[0]
-        me = steamapi.user.SteamUser(userurl=username)
+        username=lines[0].replace('\n', '')
+        if(len(username) == 17 and username.isdigit()):
+            me = steamapi.user.SteamUser(username)
+        else:
+            me = steamapi.user.SteamUser(userurl=username)
         print(username + ": " + str(me.state))
     else:
+        inC = inC - 1
         while(inC != numOfAccts):
             f=open(fname)
             lines=f.readlines()
-            username=lines[inC]
-            me = steamapi.user.SteamUser(userurl=username)
+            username=lines[inC].replace('\n', '')
+            if(len(username) == 17 and username.isdigit()):
+                me = steamapi.user.SteamUser(username)
+            else:
+                me = steamapi.user.SteamUser(userurl=username)
             print(username + ": " + str(me.state))
             inC += 1
     time.sleep(seconds)
